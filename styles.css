@@ -55,12 +55,18 @@ label {
 
 input[type="text"],
 input[type="number"],
-select {
+select,
+textarea {
     width: 100%;
     padding: 0.4rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 0.85rem;
+}
+
+textarea {
+    min-height: 60px;
+    resize: vertical;
 }
 
 .quantity-input {
@@ -141,16 +147,48 @@ button:hover {
 
 .checklist-item {
     display: flex;
-    align-items: center;
-    padding: 0.4rem 0.6rem;
+    flex-direction: column;
     background-color: #f8f9fa;
     border-radius: 4px;
-    transition: background-color 0.3s;
-    min-height: 32px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
 }
 
 .checklist-item:hover {
     background-color: #e9ecef;
+}
+
+.checklist-item.current {
+    border-color: #3498db;
+    background-color: #e3f2fd;
+}
+
+.checklist-item.current .checklist-item-content {
+    background-color: #e3f2fd;
+}
+
+.checklist-item-content {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.6rem;
+    min-height: 32px;
+    position: relative;
+}
+
+.checklist-item-content::after {
+    content: '';
+    position: absolute;
+    right: 0.6rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.3s;
+}
+
+.checklist-item.current .checklist-item-content::after {
+    background-color: #3498db;
 }
 
 .checklist-item input[type="checkbox"] {
@@ -173,6 +211,23 @@ button:hover {
 .checklist-item.completed label {
     text-decoration: line-through;
     color: #6c757d;
+}
+
+.checklist-item-notes {
+    padding: 0.3rem 0.6rem;
+    border-top: 1px solid #e9ecef;
+    display: none;
+}
+
+.checklist-item-notes textarea {
+    width: 100%;
+    min-height: 40px;
+    font-size: 0.8rem;
+    padding: 0.3rem;
+}
+
+.checklist-item.expanded .checklist-item-notes {
+    display: block;
 }
 
 .share-section {
