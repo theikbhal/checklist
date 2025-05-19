@@ -5,17 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generateBtn');
     const checklist = document.getElementById('checklist');
     const shareLink = document.getElementById('shareLink');
-    const layoutRadios = document.querySelectorAll('input[name="layout"]');
-    const tableOptions = document.querySelector('.table-options');
-    const rowsInput = document.getElementById('rows');
+    const viewRadios = document.querySelectorAll('input[name="view"]');
+    const gridOptions = document.querySelector('.grid-options');
     const columnsInput = document.getElementById('columns');
 
     // Handle URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const titleParam = urlParams.get('title');
     const quantityParam = urlParams.get('quantity');
-    const layoutParam = urlParams.get('layout');
-    const rowsParam = urlParams.get('rows');
+    const viewParam = urlParams.get('view');
     const columnsParam = urlParams.get('columns');
 
     if (titleParam) {
@@ -28,15 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
             quantitySelect.value = 'custom';
         }
     }
-    if (layoutParam) {
-        const layoutRadio = document.querySelector(`input[name="layout"][value="${layoutParam}"]`);
-        if (layoutRadio) {
-            layoutRadio.checked = true;
-            updateLayout();
+    if (viewParam) {
+        const viewRadio = document.querySelector(`input[name="view"][value="${viewParam}"]`);
+        if (viewRadio) {
+            viewRadio.checked = true;
+            updateView();
         }
-    }
-    if (rowsParam) {
-        rowsInput.value = rowsParam;
     }
     if (columnsParam) {
         columnsInput.value = columnsParam;
@@ -45,30 +40,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load saved checklist from localStorage
     loadChecklist();
 
-    // Handle layout changes
-    layoutRadios.forEach(radio => {
-        radio.addEventListener('change', updateLayout);
+    // Handle view changes
+    viewRadios.forEach(radio => {
+        radio.addEventListener('change', updateView);
     });
 
-    function updateLayout() {
-        const selectedLayout = document.querySelector('input[name="layout"]:checked').value;
-        checklist.className = 'checklist ' + selectedLayout;
+    function updateView() {
+        const selectedView = document.querySelector('input[name="view"]:checked').value;
+        checklist.className = 'checklist ' + selectedView + '-view';
         
-        if (selectedLayout === 'grid') {
-            tableOptions.style.display = 'block';
+        if (selectedView === 'grid') {
+            gridOptions.style.display = 'block';
             updateGridLayout();
         } else {
-            tableOptions.style.display = 'none';
+            gridOptions.style.display = 'none';
         }
     }
 
     function updateGridLayout() {
-        const columns = parseInt(columnsInput.value) || 5;
+        const columns = parseInt(columnsInput.value) || 3;
         checklist.style.setProperty('--columns', columns);
     }
 
-    // Handle table view changes
-    rowsInput.addEventListener('input', updateGridLayout);
+    // Handle grid view changes
     columnsInput.addEventListener('input', updateGridLayout);
 
     // Handle custom quantity input
@@ -173,18 +167,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateShareLink() {
         const goal = goalInput.value.trim();
         const quantity = customQuantityInput.value || quantitySelect.value;
-        const layout = document.querySelector('input[name="layout"]:checked').value;
-        const rows = rowsInput.value;
+        const view = document.querySelector('input[name="view"]:checked').value;
         const columns = columnsInput.value;
 
         const params = new URLSearchParams({
             title: goal,
             quantity: quantity,
-            layout: layout
+            view: view
         });
 
-        if (layout === 'grid') {
-            params.append('rows', rows);
+        if (view === 'grid') {
             params.append('columns', columns);
         }
 
@@ -196,11 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
     goalInput.addEventListener('input', updateShareLink);
     quantitySelect.addEventListener('change', updateShareLink);
     customQuantityInput.addEventListener('input', updateShareLink);
-    layoutRadios.forEach(radio => radio.addEventListener('change', updateShareLink));
-    rowsInput.addEventListener('input', updateShareLink);
+    viewRadios.forEach(radio => radio.addEventListener('change', updateShareLink));
     columnsInput.addEventListener('input', updateShareLink);
 
     // Initial setup
-    updateLayout();
+    updateView();
     updateShareLink();
 }); 

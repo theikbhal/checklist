@@ -6,88 +6,89 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.4;
+    line-height: 1.2;
     background-color: #f5f5f5;
     color: #333;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .container {
-    max-width: 800px;
-    margin: 1.5rem auto;
-    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 1rem auto;
+    padding: 1rem;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
     color: #2c3e50;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
 }
 
 h2 {
     color: #2c3e50;
-    margin-bottom: 0.8rem;
-    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
 }
 
 .input-section {
     background-color: #f8f9fa;
-    padding: 1.2rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
 }
 
 .form-group {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
 }
 
 label {
     display: block;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
     font-weight: 600;
     color: #2c3e50;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 input[type="text"],
 input[type="number"],
 select {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.4rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .quantity-input {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.3rem;
     align-items: center;
 }
 
 .quantity-input select {
-    width: 120px;
+    width: 100px;
 }
 
 .quantity-input input {
-    width: 80px;
+    width: 60px;
 }
 
-.layout-options {
+.view-options {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .radio-label {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.2rem;
     cursor: pointer;
     font-weight: normal;
+    font-size: 0.85rem;
 }
 
 .radio-label input[type="radio"] {
@@ -95,28 +96,23 @@ select {
     margin: 0;
 }
 
-.table-inputs {
-    display: flex;
-    gap: 1rem;
+.grid-options {
+    margin-top: 0.3rem;
 }
 
-.table-inputs > div {
-    flex: 1;
-}
-
-.table-inputs input {
-    width: 100%;
+.grid-options input {
+    width: 80px;
 }
 
 button {
     display: block;
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.5rem;
     background-color: #3498db;
     color: white;
     border: none;
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -126,33 +122,31 @@ button:hover {
 }
 
 .checklist {
-    margin-top: 0.8rem;
+    margin-top: 0.5rem;
 }
 
-/* Linear Layout */
-.checklist.linear {
+/* List View */
+.checklist.list-view {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.2rem;
 }
 
-/* Grid Layout */
-.checklist.grid {
+/* Grid View */
+.checklist.grid-view {
     display: grid;
-    gap: 0.4rem;
-}
-
-.checklist.grid.table-view {
-    grid-template-columns: repeat(var(--columns, 5), 1fr);
+    gap: 0.3rem;
+    grid-template-columns: repeat(var(--columns, 3), 1fr);
 }
 
 .checklist-item {
     display: flex;
     align-items: center;
-    padding: 0.8rem;
+    padding: 0.4rem 0.6rem;
     background-color: #f8f9fa;
     border-radius: 4px;
     transition: background-color 0.3s;
+    min-height: 32px;
 }
 
 .checklist-item:hover {
@@ -160,9 +154,9 @@ button:hover {
 }
 
 .checklist-item input[type="checkbox"] {
-    margin-right: 0.8rem;
-    width: 16px;
-    height: 16px;
+    margin-right: 0.5rem;
+    width: 14px;
+    height: 14px;
     cursor: pointer;
 }
 
@@ -170,7 +164,10 @@ button:hover {
     flex-grow: 1;
     margin-bottom: 0;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .checklist-item.completed label {
@@ -179,14 +176,27 @@ button:hover {
 }
 
 .share-section {
-    margin-top: 1rem;
-    padding: 0.8rem;
+    margin-top: 0.8rem;
+    padding: 0.6rem;
     background-color: #f8f9fa;
     border-radius: 4px;
 }
 
 .share-section input {
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    padding: 0.4rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    padding: 0.3rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .checklist.grid-view {
+        grid-template-columns: repeat(var(--columns, 5), 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .checklist.grid-view {
+        grid-template-columns: repeat(var(--columns, 8), 1fr);
+    }
 } 
