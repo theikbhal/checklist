@@ -3,66 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goal Checklist Generator</title>
+    <title>Checklist Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Goal Checklist Generator</h1>
+        <h1>Checklist Generator</h1>
         
-        <div class="input-section">
-            <div class="form-group">
-                <label for="goal">Goal:</label>
-                <input type="text" id="goal" placeholder="e.g., Upload videos">
-            </div>
-            
-            <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                <div class="quantity-input">
-                    <select id="quantity">
-                        <option value="5">5 items</option>
-                        <option value="10" selected>10 items</option>
-                        <option value="15">15 items</option>
-                        <option value="20">20 items</option>
-                    </select>
-                    <input type="number" id="customQuantity" placeholder="Custom" min="1" max="100">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>View:</label>
-                <div class="view-options">
-                    <label class="radio-label">
-                        <input type="radio" name="view" value="list" checked>
-                        List
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="view" value="grid">
-                        Grid
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group grid-options" style="display: none;">
-                <label for="columns">Columns:</label>
-                <input type="number" id="columns" min="1" max="10" value="3">
-            </div>
-
-            <div class="form-group">
-                <label for="highLevelNotes">High Level Notes:</label>
-                <textarea id="highLevelNotes" placeholder="Add general notes about this checklist..."></textarea>
-            </div>
-            
-            <button id="generateBtn">Generate Checklist</button>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="generate">Generate</button>
+            <button class="tab-btn" data-tab="normal">Normal</button>
+            <button class="tab-btn" data-tab="bulk">Bulk Upload</button>
+            <button class="tab-btn" data-tab="template">Template</button>
         </div>
 
-        <div class="checklist-section">
-            <h2>Your Checklist</h2>
-            <div id="checklist" class="checklist list-view"></div>
+        <div class="tab-content active" id="generate-tab">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="goal">Goal/Title:</label>
+                    <input type="text" id="goal" placeholder="Enter your goal or title">
+                </div>
+                
+                <div class="form-group">
+                    <label>Quantity:</label>
+                    <div class="quantity-input">
+                        <select id="quantity">
+                            <option value="5">5 items</option>
+                            <option value="10">10 items</option>
+                            <option value="20">20 items</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <input type="number" id="customQuantity" min="1" max="100" placeholder="Custom">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>View Options:</label>
+                    <div class="view-options">
+                        <label class="radio-label">
+                            <input type="radio" name="view" value="list" checked> List
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="view" value="grid"> Grid
+                        </label>
+                    </div>
+                    <div class="grid-options" style="display: none;">
+                        <label for="columns">Columns:</label>
+                        <input type="number" id="columns" min="1" max="10" value="3">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="highLevelNotes">High-Level Notes:</label>
+                    <textarea id="highLevelNotes" placeholder="Add general notes about your checklist..."></textarea>
+                </div>
+
+                <button id="generateBtn">Generate Checklist</button>
+            </div>
         </div>
+
+        <div class="tab-content" id="normal-tab">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="normalTitle">Checklist Title:</label>
+                    <input type="text" id="normalTitle" placeholder="Enter checklist title">
+                </div>
+                <div class="form-group">
+                    <label for="normalNotes">Notes:</label>
+                    <textarea id="normalNotes" placeholder="Add general notes..."></textarea>
+                </div>
+                <button id="addNormalItemBtn">Add Item</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="bulk-tab">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="bulkTitle">Checklist Title:</label>
+                    <input type="text" id="bulkTitle" placeholder="Enter checklist title">
+                </div>
+                <div class="form-group">
+                    <label for="bulkItems">Items (one per line):</label>
+                    <textarea id="bulkItems" placeholder="Enter items, one per line..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="bulkNotes">Notes:</label>
+                    <textarea id="bulkNotes" placeholder="Add general notes..."></textarea>
+                </div>
+                <button id="bulkGenerateBtn">Generate Checklist</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="template-tab">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="templateTitle">Template Title:</label>
+                    <input type="text" id="templateTitle" placeholder="Enter template title">
+                </div>
+                <div class="form-group">
+                    <label for="templateQuantity">Quantity:</label>
+                    <input type="number" id="templateQuantity" min="1" max="100" value="1">
+                </div>
+                <div class="form-group">
+                    <label for="templateItems">Template Items (one per line):</label>
+                    <textarea id="templateItems" placeholder="Enter template items, one per line..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="templateNotes">Notes:</label>
+                    <textarea id="templateNotes" placeholder="Add general notes..."></textarea>
+                </div>
+                <button id="templateGenerateBtn">Generate Checklist</button>
+            </div>
+        </div>
+
+        <div id="checklist" class="checklist list-view"></div>
 
         <div class="share-section">
-            <label for="shareLink">Share this checklist:</label>
+            <label for="shareLink">Share Link:</label>
             <input type="text" id="shareLink" readonly>
         </div>
     </div>
